@@ -1,0 +1,1547 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cada Momento Contigo, Angie 🌸</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lato:wght@300;400;700&display=swap');
+
+    :root {
+      --rose: #e8a0a8;
+      --rose-dark: #c0616e;
+      --rose-mid: #d4808a;
+      --rose-light: #fce8eb;
+      --gold: #c9a96e;
+      --gold-light: #f0ddb0;
+      --cream: #fdf8f2;
+      --text: #3a2a2a;
+      --text-light: #7a5a5a;
+      --dark: #1a0a0a;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--text);
+      font-family: 'Lato', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ─── PROGRESS BAR ─────────────────────────────────── */
+    #progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3px;
+      background: linear-gradient(to right, var(--rose-dark), var(--gold));
+      width: 0%;
+      z-index: 9999;
+      transition: width 0.1s linear;
+    }
+
+    /* ─── FLOATING NAV ─────────────────────────────────── */
+    .float-nav {
+      position: fixed;
+      right: 1.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 500;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .float-nav a {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(192, 97, 110, 0.3);
+      border: 2px solid var(--rose-dark);
+      display: block;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .float-nav a.active,
+    .float-nav a:hover {
+      background: var(--rose-dark);
+      transform: scale(1.4);
+    }
+
+    .float-nav a[title]::after {
+      content: attr(title);
+      position: absolute;
+      right: 1.8rem;
+      background: rgba(60,20,20,0.85);
+      color: #fff;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+
+    .float-nav a:hover[title]::after { opacity: 1; }
+
+    /* ─── HERO ─────────────────────────────────────────── */
+    #hero {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('photos/020_nyc_025_IMG_4745.jpg');
+      background-size: cover;
+      background-position: center 30%;
+      filter: brightness(0.5);
+      transform: scale(1.08);
+      animation: slowZoom 25s ease-in-out infinite alternate;
+    }
+
+    @keyframes slowZoom {
+      from { transform: scale(1.08); }
+      to   { transform: scale(1.15); }
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.05) 0%,
+        rgba(50,15,15,0.3) 50%,
+        rgba(50,15,15,0.75) 100%
+      );
+    }
+
+    /* Floating petals */
+    .petals {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .petal {
+      position: absolute;
+      top: -20px;
+      font-size: 1.2rem;
+      opacity: 0.6;
+      animation: fallPetal linear infinite;
+    }
+
+    @keyframes fallPetal {
+      0%   { transform: translateY(0) rotate(0deg); opacity: 0.6; }
+      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 2rem;
+      animation: fadeInUp 1.8s ease both;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(50px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-eyebrow {
+      font-size: clamp(0.75rem, 1.5vw, 0.95rem);
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      color: var(--rose);
+      margin-bottom: 1.2rem;
+      font-weight: 300;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 9vw, 7rem);
+      color: #fff;
+      line-height: 1.05;
+      margin-bottom: 1.5rem;
+      text-shadow: 0 4px 30px rgba(0,0,0,0.5);
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--rose);
+      display: block;
+    }
+
+    .hero-tagline {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1rem, 2.5vw, 1.5rem);
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 3rem;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 2.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      text-align: center;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--rose);
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      opacity: 0.7;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: rgba(255,255,255,0.5);
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      animation: bounce 2.5s ease-in-out infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(10px); }
+    }
+
+    /* ─── LETTER ───────────────────────────────────────── */
+    #carta {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 7rem 2rem 5rem;
+      text-align: center;
+    }
+
+    .ornament {
+      font-size: 1.5rem;
+      color: var(--rose);
+      letter-spacing: 0.8em;
+      margin-bottom: 2.5rem;
+      display: block;
+    }
+
+    #carta h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      color: var(--rose-dark);
+      margin-bottom: 2.5rem;
+    }
+
+    #carta p {
+      font-size: 1.1rem;
+      line-height: 2;
+      color: var(--text-light);
+      margin-bottom: 1.8rem;
+    }
+
+    #carta p strong { color: var(--rose-dark); }
+
+    /* ─── CHAPTER HEADER ───────────────────────────────── */
+    .chapter-header {
+      text-align: center;
+      padding: 6rem 2rem 2.5rem;
+      position: relative;
+    }
+
+    .chapter-number {
+      font-size: 0.7rem;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.8rem;
+    }
+
+    .chapter-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 6vw, 4rem);
+      color: var(--text);
+      margin-bottom: 0.8rem;
+      line-height: 1.15;
+    }
+
+    .chapter-subtitle {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: var(--text-light);
+      max-width: 520px;
+      margin: 0 auto 2rem;
+    }
+
+    .chapter-line {
+      width: 100px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--rose), transparent);
+      margin: 0 auto;
+    }
+
+    /* ─── PHOTO GRID ───────────────────────────────────── */
+    .grid-wrap {
+      padding: 1.5rem 1.5rem 0.5rem;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .photo-grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    .g-2 { grid-template-columns: 1fr 1fr; }
+    .g-3 { grid-template-columns: 1fr 1fr 1fr; }
+    .g-feat { grid-template-columns: 2fr 1fr; }
+    .g-feat-r { grid-template-columns: 1fr 2fr; }
+    .g-1 { grid-template-columns: 1fr; }
+
+    .photo-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 6px;
+      cursor: pointer;
+      background: #e0d0d0;
+    }
+
+    .photo-card.tall   { aspect-ratio: 3/4; }
+    .photo-card.wide   { aspect-ratio: 4/3; }
+    .photo-card.square { aspect-ratio: 1/1; }
+    .photo-card.cinema { aspect-ratio: 16/9; }
+    .photo-card.port   { aspect-ratio: 2/3; }
+
+    .photo-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .photo-card:hover img { transform: scale(1.06); }
+
+    .photo-card .cap {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
+      color: #fff;
+      padding: 2.5rem 1rem 0.8rem;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 0.88rem;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+
+    .photo-card:hover .cap {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Photo number badge */
+    .photo-card .badge {
+      position: absolute;
+      top: 0.6rem;
+      left: 0.6rem;
+      background: rgba(0,0,0,0.45);
+      color: rgba(255,255,255,0.8);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .photo-card:hover .badge { opacity: 1; }
+
+    /* ─── FULL-WIDTH PHOTO ─────────────────────────────── */
+    .full-photo {
+      width: 100%;
+      max-height: 75vh;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .full-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 40%;
+      display: block;
+      transition: transform 0.7s ease;
+    }
+
+    .full-photo:hover img { transform: scale(1.03); }
+
+    .full-photo .overlay-text {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      color: #fff;
+      text-shadow: 0 2px 15px rgba(0,0,0,0.6);
+      pointer-events: none;
+    }
+
+    .full-photo .overlay-text h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 5vw, 3.5rem);
+      margin-bottom: 0.4rem;
+    }
+
+    .full-photo .overlay-text p {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(0.9rem, 2vw, 1.2rem);
+      opacity: 0.85;
+    }
+
+    /* ─── QUOTE ────────────────────────────────────────── */
+    .quote-section {
+      text-align: center;
+      padding: 5rem 2rem;
+      max-width: 750px;
+      margin: 0 auto;
+    }
+
+    .quote-section blockquote {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+      color: var(--rose-dark);
+      line-height: 1.65;
+      position: relative;
+      padding: 0 1.5rem;
+    }
+
+    .quote-section blockquote::before {
+      content: '\201C';
+      font-size: 6rem;
+      color: var(--rose-light);
+      position: absolute;
+      top: -2rem;
+      left: -0.5rem;
+      line-height: 1;
+      font-family: Georgia, serif;
+    }
+
+    .quote-section cite {
+      display: block;
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-style: normal;
+    }
+
+    /* ─── TIMELINE STRIP ───────────────────────────────── */
+    .timeline {
+      padding: 4rem 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .timeline h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: var(--rose-dark);
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .timeline-items {
+      position: relative;
+      padding-left: 2rem;
+    }
+
+    .timeline-items::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--rose-light), var(--rose), var(--rose-light));
+    }
+
+    .timeline-item {
+      position: relative;
+      padding: 0 0 2.5rem 2rem;
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .timeline-item.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -0.45rem;
+      top: 0.3rem;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--rose-dark);
+      border: 2px solid var(--cream);
+      box-shadow: 0 0 0 3px var(--rose-light);
+    }
+
+    .timeline-date {
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.3rem;
+    }
+
+    .timeline-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+    }
+
+    .timeline-desc {
+      font-size: 0.95rem;
+      color: var(--text-light);
+      line-height: 1.7;
+    }
+
+    /* ─── POLAROID STRIP ───────────────────────────────── */
+    .polaroid-strip {
+      padding: 3rem 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+      cursor: grab;
+    }
+
+    .polaroid-strip::-webkit-scrollbar { display: none; }
+    .polaroid-strip.grabbing { cursor: grabbing; }
+
+    .polaroid-inner {
+      display: flex;
+      gap: 1.5rem;
+      padding: 1rem 3rem;
+      width: max-content;
+    }
+
+    .polaroid {
+      background: #fff;
+      padding: 0.8rem 0.8rem 2.5rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.12), 0 1px 4px rgba(0,0,0,0.08);
+      width: 220px;
+      flex-shrink: 0;
+      transform: rotate(var(--rot, 0deg));
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .polaroid:hover {
+      transform: rotate(0deg) scale(1.05);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+      z-index: 10;
+    }
+
+    .polaroid img {
+      width: 100%;
+      aspect-ratio: 1/1;
+      object-fit: cover;
+      display: block;
+    }
+
+    .polaroid-label {
+      text-align: center;
+      margin-top: 0.8rem;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+
+    /* ─── CLOSING ──────────────────────────────────────── */
+    #cierre {
+      background: linear-gradient(135deg, #2a0a0a 0%, #4a1a1a 40%, #3a1010 100%);
+      color: #fff;
+      text-align: center;
+      padding: 7rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #cierre::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle at 20% 50%, rgba(232,160,168,0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(201,169,110,0.06) 0%, transparent 40%);
+    }
+
+    .cierre-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 750px;
+      margin: 0 auto;
+    }
+
+    .heart-anim {
+      font-size: 3.5rem;
+      display: block;
+      margin-bottom: 2rem;
+      animation: heartbeat 1.8s ease-in-out infinite;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      14%       { transform: scale(1.2); }
+      28%       { transform: scale(1); }
+      42%       { transform: scale(1.15); }
+      70%       { transform: scale(1); }
+    }
+
+    #cierre h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 6vw, 4rem);
+      color: var(--rose);
+      margin-bottom: 2rem;
+      line-height: 1.2;
+    }
+
+    #cierre p {
+      font-size: 1.1rem;
+      line-height: 2;
+      color: rgba(255,255,255,0.82);
+      margin-bottom: 1.8rem;
+    }
+
+    #cierre p strong { color: var(--rose); }
+
+    .exam-cta {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--rose-dark), var(--gold));
+      color: #fff;
+      padding: 1.1rem 3rem;
+      border-radius: 50px;
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      margin: 2rem 0;
+      box-shadow: 0 8px 35px rgba(192,97,110,0.45);
+      animation: glowPulse 2.5s ease-in-out infinite;
+      text-decoration: none;
+    }
+
+    @keyframes glowPulse {
+      0%, 100% { box-shadow: 0 8px 35px rgba(192,97,110,0.45); }
+      50%       { box-shadow: 0 8px 55px rgba(192,97,110,0.75); }
+    }
+
+    .signature {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.8rem;
+      color: var(--rose);
+      margin-top: 3rem;
+    }
+
+    /* ─── LIGHTBOX ─────────────────────────────────────── */
+    #lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.94);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    #lightbox.open { display: flex; }
+
+    #lightbox img {
+      max-width: 90vw;
+      max-height: 88vh;
+      object-fit: contain;
+      border-radius: 3px;
+      box-shadow: 0 20px 80px rgba(0,0,0,0.6);
+      transition: opacity 0.25s ease;
+    }
+
+    #lightbox img.fade { opacity: 0; }
+
+    .lb-close {
+      position: absolute;
+      top: 1.2rem; right: 1.5rem;
+      color: rgba(255,255,255,0.7);
+      font-size: 2.2rem;
+      cursor: pointer;
+      background: none;
+      border: none;
+      line-height: 1;
+      transition: color 0.2s, transform 0.2s;
+    }
+
+    .lb-close:hover { color: #fff; transform: scale(1.1); }
+
+    .lb-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(255,255,255,0.7);
+      font-size: 3rem;
+      cursor: pointer;
+      background: rgba(255,255,255,0.08);
+      border: none;
+      padding: 0.4rem 0.9rem;
+      border-radius: 6px;
+      transition: background 0.2s, color 0.2s;
+      line-height: 1;
+    }
+
+    .lb-nav:hover { background: rgba(255,255,255,0.18); color: #fff; }
+    .lb-prev { left: 1rem; }
+    .lb-next { right: 1rem; }
+
+    .lb-counter {
+      position: absolute;
+      bottom: 1.2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.5);
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+    }
+
+    .lb-caption {
+      position: absolute;
+      bottom: 3rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.75);
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1rem;
+      text-align: center;
+      max-width: 500px;
+      pointer-events: none;
+    }
+
+    /* ─── REVEAL ANIMATIONS ────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(35px);
+      transition: opacity 0.9s ease, transform 0.9s ease;
+    }
+
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-35px);
+      transition: opacity 0.9s ease, transform 0.9s ease;
+    }
+
+    .reveal-left.visible { opacity: 1; transform: translateX(0); }
+
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(35px);
+      transition: opacity 0.9s ease, transform 0.9s ease;
+    }
+
+    .reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+    /* ─── RESPONSIVE ───────────────────────────────────── */
+    @media (max-width: 640px) {
+      .g-2, .g-3, .g-feat, .g-feat-r { grid-template-columns: 1fr; }
+      .photo-card.tall, .photo-card.port { aspect-ratio: 4/3; }
+      .float-nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Progress bar -->
+<div id="progress-bar"></div>
+
+<!-- Floating nav dots -->
+<nav class="float-nav">
+  <a href="#hero"    title="Inicio"></a>
+  <a href="#carta"   title="Carta"></a>
+  <a href="#otono"   title="Otoño 2025"></a>
+  <a href="#invierno" title="Invierno 2025"></a>
+  <a href="#tahoe"   title="Lake Tahoe"></a>
+  <a href="#nyc"     title="Nueva York"></a>
+  <a href="#cierre"  title="Para Angie"></a>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!--  HERO                                                   -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+
+  <!-- Floating petals -->
+  <div class="petals" id="petals"></div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">Una historia de amor en cuatro estaciones</p>
+    <h1 class="hero-title">
+      Cada Momento
+      <em>Contigo</em>
+    </h1>
+    <p class="hero-tagline">Para Angie — con todo mi corazón, siempre.</p>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-num">4</span>
+        <span class="stat-label">Destinos</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">41</span>
+        <span class="stat-label">Recuerdos</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">∞</span>
+        <span class="stat-label">Amor</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <span>Desliza</span>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="6 9 12 15 18 9"></polyline>
+    </svg>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!--  CARTA DE AMOR                                          -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section id="carta">
+  <div class="reveal">
+    <span class="ornament">✦ &nbsp; ✦ &nbsp; ✦</span>
+    <h2>Querida Angie,</h2>
+    <p>
+      Hice este álbum para ti — no porque sea una ocasión especial,
+      sino porque <strong>tú eres la ocasión</strong>. Cada foto aquí
+      es un momento que nunca quiero olvidar, un recuerdo que me hace
+      sonreír cada vez que lo pienso.
+    </p>
+    <p>
+      Desde las hojas doradas del otoño hasta las orillas nevadas del lago,
+      desde las luces brillantes de Nueva York hasta la calidez tranquila
+      de estar juntos — cada uno de estos momentos ha sido
+      <strong>mi favorito</strong>.
+    </p>
+    <p>
+      Eres brillante, eres valiente, y eres profundamente amada.
+      Abre estas páginas siempre que necesites un recordatorio de eso. 🌸
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!--  CAPÍTULO 1 — OTOÑO 2025                                -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div id="otono" class="chapter-header reveal">
+  <p class="chapter-number">Capítulo Uno</p>
+  <h2 class="chapter-title">Oro de Otoño</h2>
+  <p class="chapter-subtitle">Otoño 2025 — donde las hojas se volvieron doradas, y nosotros también</p>
+  <div class="chapter-line"></div>
+</div>
+
+<!-- Featured: autumn park selfie + indoor -->
+<div class="grid-wrap reveal">
+  <div class="photo-grid g-feat">
+    <div class="photo-card wide" onclick="openLb(0)">
+      <img src="photos/001_fall_042_IMG_2240.jpg" alt="Parque otoñal" loading="lazy" />
+      <div class="cap">Hojas doradas, días dorados</div>
+      <div class="badge">01</div>
+    </div>
+    <div class="photo-card tall" onclick="openLb(1)">
+      <img src="photos/000_fall_026_eacf03a1-8aa6-43ee-874a-0821dd857058.jpg" alt="Selfie interior" loading="lazy" />
+      <div class="cap">Solo nosotros dos</div>
+      <div class="badge">02</div>
+    </div>
+  </div>
+</div>
+
+<!-- Disneyland trio -->
+<div class="grid-wrap reveal">
+  <div class="photo-grid g-3">
+    <div class="photo-card tall" onclick="openLb(2)">
+      <img src="photos/027_fall_006_a7eef780-6445-4296-ae6e-c21cfe3459bb.jpg" alt="Disneyland" loading="lazy" />
+      <div class="cap">¡70 aniversario de Disneyland!</div>
+      <div class="badge">03</div>
+    </div>
+    <div class="photo-card tall" onclick="openLb(3)">
+      <img src="photos/028_fall_016_2125c880-3b41-45cc-b584-d776fe5ef08c.jpg" alt="Personaje" loading="lazy" />
+      <div class="cap">El lugar más feliz del mundo</div>
+      <div class="badge">04</div>
+    </div>
+    <div class="photo-card tall" onclick="openLb(4)">
+      <img src="photos/029_fall_020_afe2fe44-772b-4148-8585-d01b3c385cc9.jpg" alt="Mascota" loading="lazy" />
+      <div class="cap">Creando recuerdos mágicos</div>
+      <div class="badge">05</div>
+    </div>
+  </div>
+</div>
+
+<!-- Rose garden -->
+<div class="grid-wrap reveal">
+  <div class="photo-grid g-2">
+    <div class="photo-card tall" onclick="openLb(5)">
+      <img src="photos/030_fall_034_IMG_2255.jpg" alt="Jardín de rosas" loading="lazy" />
+      <div class="cap">Detente a oler las rosas 🌹</div>
+      <div class="badge">06</div>
+    </div>
+    <div class="photo-card tall" onclick="openLb(6)">
+      <img src="photos/039_tahoe_jan_038_IMG_4378.jpg" alt="Nieve Tahoe" loading="lazy" />
+      <div class="cap">Brazos abiertos al mundo</div>
+      <div class="badge">07</div>
+    </div>
+  </div>
+</div>
+
+<div class="quote-section reveal">
+  <blockquote>
+    Cada estación contigo es mi estación favorita.
+  </blockquote>
+  <cite>— Angli</cite>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!--  CAPÍTULO 2 — INVIERNO 2025                             -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div id="invierno" class="chapter-header reveal">
+  <p class="chapter-number">Capítulo Dos</p>
+  <h2 class="chapter-title">Calor de Invierno</h2>
+  <p class="chapter-subtitle">Invierno 2025 — frío afuera, cálidos juntos</p>
+  <div class="chapter-line"></div>
+</div>
+
+<!-- Full-width beach -->
+<div class="full-photo reveal" onclick="openLb(7)">
+  <img src="photos/003_winter_037_bfa3cef138b549ddc4403dedc13686dd.jpg" alt="Playa juntos" />
+  <div class="overlay-text">
+    <h3>Persiguiendo Olas Juntos</h3>
+    <p>El mar, tú y yo</p>
+  </div>
+</div>
+
+<!-- Cozy + waterfall -->
+<div class="grid-wrap reveal">
+  <div class="photo-grid g-2">
+    <div class="photo-card wide" onclick="openLb(8)">
+      <img src="photos/002_winter_031_IMG_3620.jpg" alt="Café acogedor" loading="lazy" />
+      <div class="cap">Mañanas acogedoras juntos</div>
+      <div class="badge">09</div>
+    </div>
+    <div class="photo-card wide" onclick="openLb(9)">
+      <img src="photos/005_winter_047_IMG_2889.jpg" alt="Cascada" loading="lazy" />
+      <div class="cap">Persiguiendo cascadas</div>
+      <div class="badge">10</div>
+    </div>
+  </div>
+</div>
+
+<!-- Holiday trio -->
+<div class="grid-wrap reveal">
+  <div class="photo-grid g-3">
+    <div class="photo-card tall" onclick="openLb(10)">
+      <img src="photos/032_winter_032_IMG_3558.jpg" alt="Navidad" loading="lazy" />
+      <div class="cap">Espíritu navideño 🎄</div>
+      <div class="badge">11</div>
+    </div>
+    <div class="photo-card tall" onclick="openLb(11)">
+      <img src="photos/033_winter_033_IMG_3510.jpg" alt="Sonriendo" loading="lazy" />
+      <div class="cap">Esa sonrisa que me derrite 😊</div>
+      <div class="badge">12</div>
+    </div>
+    <div class="photo-card tall" onclick="openLb(12)">
+      <img src="photos/034_winter_034_IMG_3575.jpg" alt="Familia" loading="lazy" />
+      <div class="cap">Toda la familia unida</div>
+      <div class="badge">13</div>
+    </div>
+  </div>
+</div>
+
+<!-- Concert + escape room -->
+<div class="grid-wrap reveal">
+  <div class="photo-grid g-2">
+    <div class="photo-card wide" onclick="openLb(13)">
+      <img src="photos/004_winter_045_3908cf04-99ad-47ba-a67c-bd9a1740e338.jpg" alt="Concierto" loading="lazy" />
+      <div class="cap">Sinfónico — una noche inolvidable</div>
+      <div class="badge">14</div>
+    </div>
+    <div class="photo-card wide" onclick="openLb(14)">
+      <img src="photos/031_winter_007_IMG_3748.jpg" alt="Escape room" loading="lazy" />
+      <div class="cap">¡Escapamos! 🎉</div>
+      <div class="badge">15</div>
+    </div>
+  </div>
+</div>
+
+<!-- Polaroid strip — winter memories -->
+<div class="grid-wrap">
+  <p style="text-align:center; font-family:'Playfair Display',serif; font-style:italic; color:var(--text-light); margin: 2rem 0 0.5rem; font-size:1rem;">
+    ✦ &nbsp; Desliza para más recuerdos &nbsp; ✦
+  </p>
+</div>
+<div class="polaroid-strip reveal" id="strip1">
+  <div class="polaroid-inner">
+    <div class="polaroid" style="--rot:-2deg" onclick="openLb(8)">
+      <img src="photos/002_winter_031_IMG_3620.jpg" alt="" />
+      <div class="polaroid-label">Mañanas de café</div>
+    </div>
+    <div class="polaroid" style="--rot:1.5deg" onclick="openLb(9)">
+      <img src="photos/005_winter_047_IMG_2889.jpg" alt="" />
+      <div class="polaroid-label">La cascada</div>
+    </div>
+    <div class="polaroid" style="--rot:-1deg" onclick="openLb(10)">
+      <img src="photos/032_winter_032_IMG_3558.jpg" alt="" />
+      <div class="polaroid-label">Navidad 🎄</div>
+    </div>
+    <div class="polaroid" style="--rot:2.5deg" onclick="openLb(11)">
+      <img src="photos/033_winter_033_IMG_3510.jpg" alt="" />
+      <div class="polaroid-label">Tu sonrisa</div>
+    </div>
+    <div class="polaroid" style="--rot:-1.5deg" onclick="openLb(12)">
+      <img src="photos/034_winter_034_IMG_3575.jpg" alt="" />
+      <div class="polaroid-label">Familia</div>
+    </div>
+    <div class="polaroid" style="--rot:1deg" onclick="openLb(13)">
+      <img src="photos/004_winter_045_3908cf04-99ad-47ba-a67c-bd9a1740e338.jpg" alt="" />
+      <div class="polaroid-label">Sinfónico</div>
+    </div>
+    <div class="polaroid" style="--rot:-2deg" onclick="openLb(14)">
+      <img src="photos/031_winter_007_IMG_3748.jpg" alt="" />
+      <div class="polaroid-label">¡Escapamos!</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!--  CAPÍTULO 3 — LAKE TAHOE                                -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div id="tahoe" class="chapter-header reveal">
+  <p class="chapter-number">Capítulo Tres</p>
+  <h2 class="chapter-title">Lake Tahoe en Enero</h2>
+  <p class="chapter-subtitle">Enero 2026 — nieve, montañas, y tú</p>
+  <div class="chapter-line"></div>
+</div>
+
+<!-- Hero Tahoe sunset -->
+<div class="full-photo reveal" onclick="openLb(15)">
+  <img src="photos/011_tahoe_jan_025_IMG_4519.jpg" alt="Atardecer Tahoe" />
+  <div class="overlay-text">
+    <h3>Atardecer en el Lago Tahoe</h3>
+    <p>El momento más hermoso del viaje</p>
+  </div>
+</div>
+
+<!-- Tahoe grid -->
+<div class="grid-wrap reveal">
+  <div class="photo-grid g-3">
+    <div class="photo-card wide" onclick="openLb(16)">
+      <img src="photos/009_tahoe_jan_022_IMG_4517.jpg" alt="Selfie nieve" loading="lazy" />
+      <div class="cap">Selfie junto al lago nevado</div>
+      <div class="badge">17</div>
+    </div>
+    <div class="photo-card wide" onclick="openLb(17)">
+      <img src="photos/010_tahoe_jan_023_IMG_4518.jpg" alt="Juntos nieve" loading="lazy" />
+      <div class="cap">Abrigados juntos</div>
+      <div class="badge">18</div>
+    </div>
+    <div class="photo-card wide" onclick="openLb(18)">
+      <img src="photos/012_tahoe_jan_040_IMG_4413.jpg" alt="Playa nevada" loading="lazy" />
+      <div class="cap">Una playa nevada</div>
+      <div class="badge">19</div>
+    </div>
+  </div>
+</div>
+
+<div class="grid-wrap reveal">
+  <div class="photo-grid g-feat-r">
+    <div class="photo-card tall" onclick="openLb(19)">
+      <img src="photos/006_tahoe_jan_011_IMG_4626.jpg" alt="Helado en el frío" loading="lazy" />
+      <div class="cap">Helado bajo la nieve 🍦</div>
+      <div class="badge">20</div>
+    </div>
+    <div class="photo-card wide" onclick="openLb(20)">
+      <img src="photos/008_tahoe_jan_018_IMG_4333.jpg" alt="Perro en el lago" loading="lazy" />
+      <div class="cap">Todo el equipo en el lago</div>
+      <div class="badge">21</div>
+    </div>
+  </div>
+</div>
+
+<div class="grid-wrap reveal">
+  <div class="photo-grid g-2">
+    <div class="photo-card wide" onclick="openLb(21)">
+      <img src="photos/037_tahoe_jan_033_IMG_4339.jpg" alt="Paisaje nevado" loading="lazy" />
+      <div class="cap">Paraíso invernal</div>
+      <div class="badge">22</div>
+    </div>
+    <div class="photo-card wide" onclick="openLb(22)">
+      <img src="photos/038_tahoe_jan_036_IMG_4300.jpg" alt="Orilla nevada" loading="lazy" />
+      <div class="cap">Orillas nevadas en paz</div>
+      <div class="badge">23</div>
+    </div>
+  </div>
+</div>
+
+<div class="grid-wrap reveal">
+  <div class="photo-grid g-1">
+    <div class="photo-card wide" onclick="openLb(23)">
+      <img src="photos/007_tahoe_jan_013_IMG_4636.jpg" alt="Cabaña acogedora" loading="lazy" />
+      <div class="cap">Vibras de cabaña acogedora</div>
+      <div class="badge">24</div>
+    </div>
+  </div>
+</div>
+
+<div class="quote-section reveal">
+  <blockquote>
+    Las montañas eran hermosas, pero solo tenía ojos para ti.
+  </blockquote>
+  <cite>— Angli</cite>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!--  CAPÍTULO 4 — NUEVA YORK                                -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div id="nyc" class="chapter-header reveal">
+  <p class="chapter-number">Capítulo Cuatro</p>
+  <h2 class="chapter-title">Nueva York City</h2>
+  <p class="chapter-subtitle">2026 — la ciudad que nunca duerme, y nosotros tampoco</p>
+  <div class="chapter-line"></div>
+</div>
+
+<!-- HERO: Red roses kiss -->
+<div class="full-photo reveal" onclick="openLb(24)">
+  <img src="photos/020_nyc_025_IMG_4745.jpg" alt="Rosas rojas NYC" style="object-position: center 25%;" />
+  <div class="overlay-text">
+    <h3>Rosas Rojas en Nueva York</h3>
+    <p>La foto más romántica del álbum</p>
+  </div>
+</div>
+
+<!-- Angie solo — snowy Central Park -->
+<div class="grid-wrap reveal">
+  <div class="photo-grid g-feat">
+    <div class="photo-card wide" onclick="openLb(25)">
+      <img src="photos/040_nyc_031_IMG_5260.jpg" alt="Angie Central Park" loading="lazy" />
+      <div class="cap">Libre y radiante en Central Park nevado ✨</div>
+      <div class="badge">26</div>
+    </div>
+    <div class="photo-card tall" onclick="openLb(26)">
+      <img src="photos/013_nyc_008_IMG_5182.jpg" alt="Times Square" loading="lazy" />
+      <div class="cap">Times Square de noche</div>
+      <div class="badge">27</div>
+    </div>
+  </div>
+</div>
+
+<div class="grid-wrap reveal">
+  <div class="photo-grid g-2">
+    <div class="photo-card wide" onclick="openLb(27)">
+      <img src="photos/016_nyc_015_IMG_4897.jpg" alt="Central Park nevado" loading="lazy" />
+      <div class="cap">Central Park bajo la nieve</div>
+      <div class="badge">28</div>
+    </div>
+    <div class="photo-card wide" onclick="openLb(28)">
+      <img src="photos/018_nyc_022_IMG_4762.jpg" alt="Grand Central" loading="lazy" />
+      <div class="cap">Momentos en Grand Central</div>
+      <div class="badge">29</div>
+    </div>
+  </div>
+</div>
+
+<!-- HERO: Holding hands skyline -->
+<div class="full-photo reveal" onclick="openLb(29)">
+  <img src="photos/014_nyc_009_IMG_4952.jpg" alt="Tomados de la mano NYC" />
+  <div class="overlay-text">
+    <h3>De la Mano, el Mundo a Nuestros Pies</h3>
+    <p>El horizonte de Nueva York, y tú</p>
+  </div>
+</div>
+
+<!-- Ferry + Statue of Liberty -->
+<div class="grid-wrap reveal">
+  <div class="photo-grid g-feat-r">
+    <div class="photo-card tall" onclick="openLb(30)">
+      <img src="photos/021_nyc_030_IMG_4807.jpg" alt="Ferry selfie" loading="lazy" />
+      <div class="cap">Ferry a la Estatua de la Libertad</div>
+      <div class="badge">31</div>
+    </div>
+    <div class="photo-card tall" onclick="openLb(31)">
+      <img src="photos/041_nyc_044_IMG_4835.jpg" alt="Estatua de la Libertad" loading="lazy" />
+      <div class="cap">Angie y la Estatua de la Libertad 🗽</div>
+      <div class="badge">32</div>
+    </div>
+  </div>
+</div>
+
+<div class="grid-wrap reveal">
+  <div class="photo-grid g-3">
+    <div class="photo-card tall" onclick="openLb(32)">
+      <img src="photos/022_nyc_037_IMG_5057.jpg" alt="Metro NYC" loading="lazy" />
+      <div class="cap">Aventuras en el metro de NYC</div>
+      <div class="badge">33</div>
+    </div>
+    <div class="photo-card tall" onclick="openLb(33)">
+      <img src="photos/024_nyc_041_IMG_4651.jpg" alt="Suéteres iguales" loading="lazy" />
+      <div class="cap">Combinando en gris 🩶</div>
+      <div class="badge">34</div>
+    </div>
+    <div class="photo-card tall" onclick="openLb(34)">
+      <img src="photos/023_nyc_040_IMG_5203.jpg" alt="Times Square noche" loading="lazy" />
+      <div class="cap">Perdidos entre las luces</div>
+      <div class="badge">35</div>
+    </div>
+  </div>
+</div>
+
+<!-- NYC night skyline from above -->
+<div class="grid-wrap reveal">
+  <div class="photo-grid g-2">
+    <div class="photo-card wide" onclick="openLb(35)">
+      <img src="photos/026_nyc_042_IMG_5276.jpg" alt="NYC noche" loading="lazy" />
+      <div class="cap">La ciudad de noche</div>
+      <div class="badge">36</div>
+    </div>
+    <div class="photo-card wide" onclick="openLb(36)">
+      <img src="photos/042_nyc_048_IMG_4989.jpg" alt="Horizonte NYC" loading="lazy" />
+      <div class="cap">El horizonte de Nueva York desde las alturas</div>
+      <div class="badge">37</div>
+    </div>
+  </div>
+</div>
+
+<!-- LOVE sculpture — final NYC hero -->
+<div class="full-photo reveal" onclick="openLb(37)">
+  <img src="photos/025_nyc_047_IMG_4759.jpg" alt="Escultura Love NYC" />
+  <div class="overlay-text">
+    <h3>Amor, en Cada Ciudad</h3>
+    <p>Porque el amor nos sigue a todas partes</p>
+  </div>
+</div>
+
+<!-- Polaroid strip — NYC memories -->
+<div class="grid-wrap">
+  <p style="text-align:center; font-family:'Playfair Display',serif; font-style:italic; color:var(--text-light); margin: 2rem 0 0.5rem; font-size:1rem;">
+    ✦ &nbsp; Más momentos de Nueva York &nbsp; ✦
+  </p>
+</div>
+<div class="polaroid-strip reveal" id="strip2">
+  <div class="polaroid-inner">
+    <div class="polaroid" style="--rot:-1.5deg" onclick="openLb(24)">
+      <img src="photos/020_nyc_025_IMG_4745.jpg" alt="" />
+      <div class="polaroid-label">Las rosas 🌹</div>
+    </div>
+    <div class="polaroid" style="--rot:2deg" onclick="openLb(25)">
+      <img src="photos/040_nyc_031_IMG_5260.jpg" alt="" />
+      <div class="polaroid-label">Central Park</div>
+    </div>
+    <div class="polaroid" style="--rot:-1deg" onclick="openLb(29)">
+      <img src="photos/014_nyc_009_IMG_4952.jpg" alt="" />
+      <div class="polaroid-label">De la mano</div>
+    </div>
+    <div class="polaroid" style="--rot:1.5deg" onclick="openLb(31)">
+      <img src="photos/041_nyc_044_IMG_4835.jpg" alt="" />
+      <div class="polaroid-label">Estatua 🗽</div>
+    </div>
+    <div class="polaroid" style="--rot:-2deg" onclick="openLb(37)">
+      <img src="photos/025_nyc_047_IMG_4759.jpg" alt="" />
+      <div class="polaroid-label">Love ❤️</div>
+    </div>
+    <div class="polaroid" style="--rot:1deg" onclick="openLb(33)">
+      <img src="photos/024_nyc_041_IMG_4651.jpg" alt="" />
+      <div class="polaroid-label">Combinando</div>
+    </div>
+    <div class="polaroid" style="--rot:-1.5deg" onclick="openLb(36)">
+      <img src="photos/042_nyc_048_IMG_4989.jpg" alt="" />
+      <div class="polaroid-label">El horizonte</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!--  LÍNEA DE TIEMPO                                        -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="timeline reveal">
+  <h3>Nuestra Historia, Capítulo a Capítulo</h3>
+  <div class="timeline-items">
+    <div class="timeline-item">
+      <div class="timeline-date">Otoño 2025</div>
+      <div class="timeline-title">🍂 Oro de Otoño — Disneyland & el Parque</div>
+      <div class="timeline-desc">Hojas doradas, risas en Disneyland por su 70° aniversario, y paseos tranquilos entre rosas. El comienzo de una temporada mágica juntos.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">Invierno 2025</div>
+      <div class="timeline-title">❄️ Calor de Invierno — Playa, Cascadas & Conciertos</div>
+      <div class="timeline-desc">Olas en la playa, cascadas escondidas, el Sinfónico, y noches de escape room. El invierno nunca se sintió tan cálido.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">Enero 2026</div>
+      <div class="timeline-title">🏔️ Lake Tahoe — Nieve, Montañas & Atardeceres</div>
+      <div class="timeline-desc">El lago congelado, los picos nevados al atardecer, helado bajo la nieve, y la calidez de estar juntos en la cabaña. Un viaje de ensueño.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">2026</div>
+      <div class="timeline-title">🗽 Nueva York — Rosas, Amor & La Gran Manzana</div>
+      <div class="timeline-desc">Rosas rojas bajo el puente, tomados de la mano frente al horizonte, la escultura "Love" de noche, y Angie radiante en Central Park nevado. La ciudad más romántica del mundo.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!--  CIERRE — PARA ANGIE                                    -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section id="cierre">
+  <div class="cierre-inner">
+    <span class="heart-anim">❤️</span>
+    <h2>Lo Vas a Lograr, Angie.</h2>
+    <p>
+      Cada aventura en este álbum — cada risa, cada abrazo, cada momento
+      de alegría pura — es prueba de lo extraordinaria que eres.
+      Enfrentas todo con una sonrisa y un corazón lleno de calidez.
+    </p>
+    <p>
+      El examen de mañana es solo otro capítulo de tu increíble historia.
+      Te has preparado tanto, eres tan inteligente, y creo en ti con
+      cada parte de mí.
+    </p>
+    <p>
+      Cuando entres a ese salón mañana, lleva todos estos recuerdos contigo.
+      Lleva las risas en Disneyland, la paz del atardecer en Lake Tahoe,
+      la magia de Nueva York de noche — y sabe que, pase lo que pase,
+      <strong>estoy tan orgulloso de ti.</strong>
+    </p>
+    <div style="margin: 2.5rem 0;">
+      <span class="exam-cta">✨ ¡A brillar en ese examen, superestrella! ✨</span>
+    </div>
+    <p style="font-size:1rem; opacity:0.7;">
+      Recuerda: tú ya has conquistado montañas nevadas, ciudades que nunca duermen,
+      y el corazón de quien te escribe esto. Un examen no tiene ninguna oportunidad. 💪
+    </p>
+    <div class="signature">
+      Con todo mi amor,<br>Angli 🌸
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!--  LIGHTBOX                                               -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div id="lightbox">
+  <button class="lb-close" onclick="closeLb()">✕</button>
+  <button class="lb-nav lb-prev" onclick="navLb(-1)">‹</button>
+  <img id="lb-img" src="" alt="" />
+  <button class="lb-nav lb-next" onclick="navLb(1)">›</button>
+  <div class="lb-caption" id="lb-cap"></div>
+  <div class="lb-counter" id="lb-count"></div>
+</div>
+
+<script>
+  // ── All photos in order ─────────────────────────────────
+  const PHOTOS = [
+    { src: 'photos/001_fall_042_IMG_2240.jpg',          cap: 'Hojas doradas, días dorados — Otoño 2025' },
+    { src: 'photos/000_fall_026_eacf03a1-8aa6-43ee-874a-0821dd857058.jpg', cap: 'Solo nosotros dos' },
+    { src: 'photos/027_fall_006_a7eef780-6445-4296-ae6e-c21cfe3459bb.jpg', cap: '¡70 aniversario de Disneyland!' },
+    { src: 'photos/028_fall_016_2125c880-3b41-45cc-b584-d776fe5ef08c.jpg', cap: 'El lugar más feliz del mundo' },
+    { src: 'photos/029_fall_020_afe2fe44-772b-4148-8585-d01b3c385cc9.jpg', cap: 'Creando recuerdos mágicos' },
+    { src: 'photos/030_fall_034_IMG_2255.jpg',          cap: 'Detente a oler las rosas 🌹' },
+    { src: 'photos/039_tahoe_jan_038_IMG_4378.jpg',     cap: 'Brazos abiertos al mundo' },
+    { src: 'photos/003_winter_037_bfa3cef138b549ddc4403dedc13686dd.jpg', cap: 'Persiguiendo olas juntos — Invierno 2025' },
+    { src: 'photos/002_winter_031_IMG_3620.jpg',        cap: 'Mañanas acogedoras juntos' },
+    { src: 'photos/005_winter_047_IMG_2889.jpg',        cap: 'Persiguiendo cascadas' },
+    { src: 'photos/032_winter_032_IMG_3558.jpg',        cap: 'Espíritu navideño 🎄' },
+    { src: 'photos/033_winter_033_IMG_3510.jpg',        cap: 'Esa sonrisa que me derrite 😊' },
+    { src: 'photos/034_winter_034_IMG_3575.jpg',        cap: 'Toda la familia unida' },
+    { src: 'photos/004_winter_045_3908cf04-99ad-47ba-a67c-bd9a1740e338.jpg', cap: 'Sinfónico — una noche inolvidable' },
+    { src: 'photos/031_winter_007_IMG_3748.jpg',        cap: '¡Escapamos! 🎉' },
+    { src: 'photos/011_tahoe_jan_025_IMG_4519.jpg',     cap: 'Atardecer en el Lago Tahoe — Enero 2026' },
+    { src: 'photos/009_tahoe_jan_022_IMG_4517.jpg',     cap: 'Selfie junto al lago nevado' },
+    { src: 'photos/010_tahoe_jan_023_IMG_4518.jpg',     cap: 'Abrigados juntos' },
+    { src: 'photos/012_tahoe_jan_040_IMG_4413.jpg',     cap: 'Una playa nevada' },
+    { src: 'photos/006_tahoe_jan_011_IMG_4626.jpg',     cap: 'Helado bajo la nieve 🍦' },
+    { src: 'photos/008_tahoe_jan_018_IMG_4333.jpg',     cap: 'Todo el equipo en el lago' },
+    { src: 'photos/037_tahoe_jan_033_IMG_4339.jpg',     cap: 'Paraíso invernal' },
+    { src: 'photos/038_tahoe_jan_036_IMG_4300.jpg',     cap: 'Orillas nevadas en paz' },
+    { src: 'photos/007_tahoe_jan_013_IMG_4636.jpg',     cap: 'Vibras de cabaña acogedora' },
+    { src: 'photos/020_nyc_025_IMG_4745.jpg',           cap: 'Rosas rojas en Nueva York 🌹 — 2026' },
+    { src: 'photos/040_nyc_031_IMG_5260.jpg',           cap: 'Angie, libre y radiante en Central Park nevado ✨' },
+    { src: 'photos/013_nyc_008_IMG_5182.jpg',           cap: 'Times Square de noche' },
+    { src: 'photos/016_nyc_015_IMG_4897.jpg',           cap: 'Central Park bajo la nieve' },
+    { src: 'photos/018_nyc_022_IMG_4762.jpg',           cap: 'Momentos en Grand Central' },
+    { src: 'photos/014_nyc_009_IMG_4952.jpg',           cap: 'De la mano, el mundo a nuestros pies 🗽' },
+    { src: 'photos/021_nyc_030_IMG_4807.jpg',           cap: 'Ferry a la Estatua de la Libertad' },
+    { src: 'photos/041_nyc_044_IMG_4835.jpg',           cap: 'Angie y la Estatua de la Libertad 🗽' },
+    { src: 'photos/022_nyc_037_IMG_5057.jpg',           cap: 'Aventuras en el metro de NYC' },
+    { src: 'photos/024_nyc_041_IMG_4651.jpg',           cap: 'Combinando en gris 🩶' },
+    { src: 'photos/023_nyc_040_IMG_5203.jpg',           cap: 'Perdidos entre las luces de Times Square' },
+    { src: 'photos/026_nyc_042_IMG_5276.jpg',           cap: 'La ciudad de noche' },
+    { src: 'photos/042_nyc_048_IMG_4989.jpg',           cap: 'El horizonte de Nueva York desde las alturas' },
+    { src: 'photos/025_nyc_047_IMG_4759.jpg',           cap: 'Amor, en cada ciudad ❤️' },
+    { src: 'photos/015_nyc_010_IMG_5184.jpg',           cap: 'Explorando la ciudad' },
+    { src: 'photos/017_nyc_017_IMG_5187.jpg',           cap: 'Noches de Nueva York' },
+    { src: 'photos/019_nyc_023_IMG_5183.jpg',           cap: 'Calles de la Gran Manzana' },
+  ];
+
+  let curIdx = 0;
+
+  function openLb(idx) {
+    curIdx = idx;
+    const lb = document.getElementById('lightbox');
+    const img = document.getElementById('lb-img');
+    const cap = document.getElementById('lb-cap');
+    const cnt = document.getElementById('lb-count');
+    img.src = PHOTOS[idx].src;
+    cap.textContent = PHOTOS[idx].cap;
+    cnt.textContent = `${idx + 1} / ${PHOTOS.length}`;
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLb() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function navLb(dir) {
+    curIdx = (curIdx + dir + PHOTOS.length) % PHOTOS.length;
+    const img = document.getElementById('lb-img');
+    const cap = document.getElementById('lb-cap');
+    const cnt = document.getElementById('lb-count');
+    img.classList.add('fade');
+    setTimeout(() => {
+      img.src = PHOTOS[curIdx].src;
+      cap.textContent = PHOTOS[curIdx].cap;
+      cnt.textContent = `${curIdx + 1} / ${PHOTOS.length}`;
+      img.classList.remove('fade');
+    }, 200);
+  }
+
+  document.getElementById('lightbox').addEventListener('click', function(e) {
+    if (e.target === this) closeLb();
+  });
+
+  document.addEventListener('keydown', e => {
+    if (!document.getElementById('lightbox').classList.contains('open')) return;
+    if (e.key === 'Escape') closeLb();
+    if (e.key === 'ArrowLeft') navLb(-1);
+    if (e.key === 'ArrowRight') navLb(1);
+  });
+
+  // ── Progress bar ────────────────────────────────────────
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = (scrollTop / docHeight) * 100;
+    document.getElementById('progress-bar').style.width = pct + '%';
+
+    // Update nav dots
+    const sections = ['hero','carta','otono','invierno','tahoe','nyc','cierre'];
+    const dots = document.querySelectorAll('.float-nav a');
+    let active = 0;
+    sections.forEach((id, i) => {
+      const el = document.getElementById(id);
+      if (el && el.getBoundingClientRect().top <= window.innerHeight * 0.5) active = i;
+    });
+    dots.forEach((d, i) => d.classList.toggle('active', i === active));
+  });
+
+  // ── Scroll reveal ───────────────────────────────────────
+  const revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .timeline-item').forEach(el => {
+    revealObserver.observe(el);
+  });
+
+  // ── Polaroid drag-to-scroll ─────────────────────────────
+  document.querySelectorAll('.polaroid-strip').forEach(strip => {
+    let isDown = false, startX, scrollLeft;
+    strip.addEventListener('mousedown', e => {
+      isDown = true;
+      strip.classList.add('grabbing');
+      startX = e.pageX - strip.offsetLeft;
+      scrollLeft = strip.scrollLeft;
+    });
+    strip.addEventListener('mouseleave', () => { isDown = false; strip.classList.remove('grabbing'); });
+    strip.addEventListener('mouseup', () => { isDown = false; strip.classList.remove('grabbing'); });
+    strip.addEventListener('mousemove', e => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - strip.offsetLeft;
+      strip.scrollLeft = scrollLeft - (x - startX) * 1.5;
+    });
+  });
+
+  // ── Floating petals ─────────────────────────────────────
+  const petalContainer = document.getElementById('petals');
+  const petalEmojis = ['🌸', '🌺', '✿', '❀'];
+  for (let i = 0; i < 12; i++) {
+    const p = document.createElement('span');
+    p.className = 'petal';
+    p.textContent = petalEmojis[Math.floor(Math.random() * petalEmojis.length)];
+    p.style.left = Math.random() * 100 + '%';
+    p.style.animationDuration = (8 + Math.random() * 10) + 's';
+    p.style.animationDelay = (Math.random() * 10) + 's';
+    p.style.fontSize = (0.8 + Math.random() * 0.8) + 'rem';
+    petalContainer.appendChild(p);
+  }
+</script>
+</body>
+</html>
